@@ -16,6 +16,8 @@ public class ReservaService {
     private final ReservaRepository reservaRepository;
     private final AmbienteRepository ambienteRepository;
 
+    
+
     // Constructor estándar para inyectar dependencias sin requerir Lombok
     public ReservaService(ReservaRepository reservaRepository, AmbienteRepository ambienteRepository) {
         this.reservaRepository = reservaRepository;
@@ -31,6 +33,7 @@ public class ReservaService {
         return reservaRepository.save(new Reserva(ambiente, request.nombreInstructor(), 
                 request.fechaHoraInicio(), request.fechaHoraFin(), request.numeroAprendices(), EstadoReserva.ACTIVA));
     }
+    
 
     public Reserva cancelarReserva(Long id) {
         Reserva reserva = reservaRepository.findById(id)
