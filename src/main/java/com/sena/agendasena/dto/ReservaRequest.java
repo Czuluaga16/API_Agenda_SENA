@@ -7,5 +7,5 @@ public record ReservaRequest(
     String nombreInstructor,
     LocalDateTime fechaHoraInicio,
     LocalDateTime fechaHoraFin,
-    int numeroAprendices
+    Integer numeroAprendices 
 ) {}

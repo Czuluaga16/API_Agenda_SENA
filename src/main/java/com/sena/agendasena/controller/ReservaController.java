@@ -13,19 +13,18 @@ public class ReservaController {
 
     private final ReservaService reservaService;
 
+    // Constructor para inyección de dependencias (sin Lombok)
     public ReservaController(ReservaService reservaService) {
         this.reservaService = reservaService;
     }
 
     @PostMapping
     public ResponseEntity<Reserva> crearReserva(@RequestBody ReservaRequest request) {
-        Reserva nuevaReserva = reservaService.crearReserva(request);
-        return new ResponseEntity<>(nuevaReserva, HttpStatus.CREATED);
+        return new ResponseEntity<>(reservaService.crearReserva(request), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}/cancelar")
     public ResponseEntity<Reserva> cancelarReserva(@PathVariable Long id) {
-        Reserva reservaCancelada = reservaService.cancelarReserva(id);
-        return ResponseEntity.ok(reservaCancelada);
+        return ResponseEntity.ok(reservaService.cancelarReserva(id));
     }
 }

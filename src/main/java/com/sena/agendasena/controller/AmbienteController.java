@@ -20,6 +20,7 @@ public class AmbienteController {
     private final AmbienteService ambienteService;
     private final ReservaService reservaService;
 
+    // Constructor estándar para inyectar servicios sin Lombok
     public AmbienteController(AmbienteService ambienteService, ReservaService reservaService) {
         this.ambienteService = ambienteService;
         this.reservaService = reservaService;
@@ -27,29 +28,25 @@ public class AmbienteController {
 
     @PostMapping
     public ResponseEntity<Ambiente> registrarAmbiente(@RequestBody Ambiente ambiente) {
-        Ambiente nuevoAmbiente = ambienteService.registrarAmbiente(ambiente);
-        return new ResponseEntity<>(nuevoAmbiente, HttpStatus.CREATED);
+        return new ResponseEntity<>(ambienteService.registrarAmbiente(ambiente), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<Ambiente>> listarAmbientes() {
-        List<Ambiente> ambientes = ambienteService.listarAmbientes();
-        return ResponseEntity.ok(ambientes);
+        return ResponseEntity.ok(ambienteService.listarAmbientes());
     }
 
     @GetMapping("/disponibles")
     public ResponseEntity<List<Ambiente>> listarAmbientesDisponibles(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime inicio,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fin) {
-        List<Ambiente> disponibles = ambienteService.listarAmbientesDisponibles(inicio, fin);
-        return ResponseEntity.ok(disponibles);
+        return ResponseEntity.ok(ambienteService.listarAmbientesDisponibles(inicio, fin));
     }
 
     @GetMapping("/{id}/reservas")
     public ResponseEntity<List<Reserva>> listarReservasPorAmbienteYFecha(
             @PathVariable Long id,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
-        List<Reserva> reservas = reservaService.listarReservasActivasPorAmbienteYFecha(id, fecha);
-        return ResponseEntity.ok(reservas);
+        return ResponseEntity.ok(reservaService.listarReservasActivasPorAmbienteYFecha(id, fecha));
     }
 }

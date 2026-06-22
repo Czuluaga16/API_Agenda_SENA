@@ -145,7 +145,7 @@ class ReservaServiceTest {
         when(ambienteRepository.findById(1L)).thenReturn(Optional.of(ambienteValido));
 
         ReglaNegocioException ex = assertThrows(ReglaNegocioException.class, () -> reservaService.crearReserva(request));
-        assertTrue(ex.getMessage().contains("supera la capacidad máxima"));
+        assertTrue(ex.getMessage().contains("Capacidad superada"));
     }
 
     /**
@@ -160,7 +160,7 @@ class ReservaServiceTest {
         when(ambienteRepository.findById(1L)).thenReturn(Optional.of(ambienteValido));
 
         ReglaNegocioException ex = assertThrows(ReglaNegocioException.class, () -> reservaService.crearReserva(request));
-        assertTrue(ex.getMessage().contains("horario institucional"));
+        assertTrue(ex.getMessage().contains("Fuera de horario"));
     }
 
     /**
@@ -175,7 +175,7 @@ class ReservaServiceTest {
         when(ambienteRepository.findById(1L)).thenReturn(Optional.of(ambienteValido));
 
         ReglaNegocioException ex = assertThrows(ReglaNegocioException.class, () -> reservaService.crearReserva(request));
-        assertTrue(ex.getMessage().contains("horario institucional"));
+        assertTrue(ex.getMessage().contains("Fuera de horario"));
     }
 
     /**
@@ -190,7 +190,7 @@ class ReservaServiceTest {
         when(ambienteRepository.findById(1L)).thenReturn(Optional.of(ambienteValido));
 
         ReglaNegocioException ex = assertThrows(ReglaNegocioException.class, () -> reservaService.crearReserva(request));
-        assertTrue(ex.getMessage().contains("iniciar y terminar el mismo día"));
+        assertTrue(ex.getMessage().contains("Fechas inválidas o no coinciden"));
     }
 
     /**
@@ -205,7 +205,7 @@ class ReservaServiceTest {
         when(ambienteRepository.findById(1L)).thenReturn(Optional.of(ambienteValido));
 
         ReglaNegocioException ex = assertThrows(ReglaNegocioException.class, () -> reservaService.crearReserva(request));
-        assertTrue(ex.getMessage().contains("durar entre 1 y 4 horas"));
+        assertTrue(ex.getMessage().contains("Duración entre 1 y 4 horas"));
     }
 
     /**
@@ -220,7 +220,7 @@ class ReservaServiceTest {
         when(ambienteRepository.findById(1L)).thenReturn(Optional.of(ambienteValido));
 
         ReglaNegocioException ex = assertThrows(ReglaNegocioException.class, () -> reservaService.crearReserva(request));
-        assertTrue(ex.getMessage().contains("durar entre 1 y 4 horas"));
+        assertTrue(ex.getMessage().contains("Duración entre 1 y 4 horas"));
     }
 
     /**
@@ -234,7 +234,7 @@ class ReservaServiceTest {
         when(ambienteRepository.findById(1L)).thenReturn(Optional.of(ambienteValido));
 
         ReglaNegocioException ex = assertThrows(ReglaNegocioException.class, () -> reservaService.crearReserva(request));
-        assertTrue(ex.getMessage().contains("se encuentra inactivo"));
+        assertTrue(ex.getMessage().contains("Ambiente inactivo"));
     }
 
     /**
@@ -249,7 +249,7 @@ class ReservaServiceTest {
         when(reservaRepository.countInstructorReservationsOnDay(eq("Carlos Zuluaga"), any(), any())).thenReturn(3L);
 
         ReglaNegocioException ex = assertThrows(ReglaNegocioException.class, () -> reservaService.crearReserva(request));
-        assertTrue(ex.getMessage().contains("ya tiene el límite máximo de 3 reservas"));
+        assertTrue(ex.getMessage().contains("Límite de 3 reservas diario alcanzado"));
     }
 
     /**
@@ -285,7 +285,7 @@ class ReservaServiceTest {
         when(reservaRepository.findById(3L)).thenReturn(Optional.of(reserva));
 
         ReglaNegocioException ex = assertThrows(ReglaNegocioException.class, () -> reservaService.cancelarReserva(3L));
-        assertTrue(ex.getMessage().contains("faltan al menos 2 horas"));
+        assertTrue(ex.getMessage().contains("Anticipación mínima de 2 horas requerida"));
     }
 
     /**
@@ -301,7 +301,7 @@ class ReservaServiceTest {
         when(ambienteRepository.findById(1L)).thenReturn(Optional.of(ambienteValido));
 
         ReglaNegocioException ex = assertThrows(ReglaNegocioException.class, () -> reservaService.crearReserva(request));
-        assertTrue(ex.getMessage().contains("debe ser posterior al momento actual"));
+        assertTrue(ex.getMessage().contains("No puedes reservar en el pasado"));
     }
 
     /**
@@ -315,6 +315,6 @@ class ReservaServiceTest {
         when(ambienteRepository.findById(1L)).thenReturn(Optional.of(ambienteValido));
 
         ReglaNegocioException ex = assertThrows(ReglaNegocioException.class, () -> reservaService.crearReserva(request));
-        assertTrue(ex.getMessage().contains("debe ser anterior a la fecha y hora de fin"));
+        assertTrue(ex.getMessage().contains("Fechas inválidas o no coinciden"));
     }
 }
